@@ -8,9 +8,7 @@ public class Reentrantlocktest {
         CountDownLatch countDownLatch = new CountDownLatch(10);
         countDownLatch.await();
         countDownLatch.countDown();
-           for (;;){
 
-           }
 
     }
 
