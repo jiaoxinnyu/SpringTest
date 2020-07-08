@@ -1,8 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="2b55442f-8f2c-4660-90df-71ff7177081d" name="Default Changelist" comment="">
+    <list default="true" id="2b55442f-8f2c-4660-90df-71ff7177081d" name="Default Changelist" comment="新增newclass">
+      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/xinyu/Controller/newclass.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/xinyu/Controller/newclass.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -13,8 +16,8 @@
     <option name="RECENT_TEMPLATES">
       <list>
         <option value="FxmlFile" />
-        <option value="Class" />
         <option value="Interface" />
+        <option value="Class" />
       </list>
     </option>
   </component>
@@ -39,6 +42,7 @@
     </option>
     <option name="importingSettings">
       <MavenImportingSettings>
+        <option name="importAutomatically" value="true" />
         <option name="vmOptionsForImporter" value="-Xmx768m" />
       </MavenImportingSettings>
     </option>
@@ -58,7 +62,7 @@
     <property name="project.structure.proportion" value="0.15" />
     <property name="project.structure.side.proportion" value="0.2" />
     <property name="run.code.analysis.last.selected.profile" value="pProject Default" />
-    <property name="settings.editor.selected.configurable" value="project.propVCSSupport.Mappings" />
+    <property name="settings.editor.selected.configurable" value="preferences.pluginManager" />
   </component>
   <component name="RecentsManager">
     <key name="CopyClassDialog.RECENTS_KEY">
@@ -189,12 +193,31 @@
       <option name="project" value="LOCAL" />
       <updated>1594093020255</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="修改reentrantlock">
+      <created>1594093327314</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1594093327314</updated>
+    </task>
+    <task id="LOCAL-00003" summary="新增newclass">
+      <created>1594093502590</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1594093502590</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
+    <ignored-roots>
+      <path value="$PROJECT_DIR$/../../GitHub/gitlocalworkspace" />
+    </ignored-roots>
     <MESSAGE value="idea整合git init" />
-    <option name="LAST_COMMIT_MESSAGE" value="idea整合git init" />
+    <MESSAGE value="修改reentrantlock" />
+    <MESSAGE value="新增newclass" />
+    <option name="LAST_COMMIT_MESSAGE" value="新增newclass" />
   </component>
   <component name="WindowStateProjectService">
     <state x="320" y="96" width="822" height="669" key="#Project_Structure" timestamp="1591578147626">
@@ -247,10 +270,10 @@
       <screen x="0" y="23" width="1440" height="822" />
     </state>
     <state x="480" y="347" key="ANALYSIS_DLG_com.intellij.analysis.BaseAnalysisAction$1/0.23.1440.822@0.23.1440.822" timestamp="1591596503055" />
-    <state x="307" y="34" key="CommitChangelistDialog2" timestamp="1594093020058">
+    <state x="307" y="34" key="CommitChangelistDialog2" timestamp="1594093659205">
       <screen x="0" y="23" width="1440" height="816" />
     </state>
-    <state x="307" y="34" key="CommitChangelistDialog2/0.23.1440.816/1440.23.1920.1057@0.23.1440.816" timestamp="1594093020058" />
+    <state x="307" y="34" key="CommitChangelistDialog2/0.23.1440.816/1440.23.1920.1057@0.23.1440.816" timestamp="1594093659205" />
     <state x="590" y="332" key="Github.ShareDialog" timestamp="1594093106641">
       <screen x="0" y="23" width="1440" height="816" />
     </state>
@@ -319,18 +342,24 @@
       <screen x="0" y="23" width="1440" height="822" />
     </state>
     <state x="258" y="91" key="Maven.ArtifactSearchDialog/0.23.1440.822@0.23.1440.822" timestamp="1592614869687" />
-    <state x="221" y="23" width="1024" height="822" key="SettingsEditor" timestamp="1594093064561">
+    <state x="221" y="23" width="1024" height="822" key="SettingsEditor" timestamp="1594109756159">
+      <screen x="0" y="23" width="1440" height="822" />
+    </state>
+    <state x="221" y="23" key="SettingsEditor/0.23.1440.816/1440.23.1920.1057@0.23.1440.816" timestamp="1594094390534" />
+    <state x="221" y="23" width="1024" height="822" key="SettingsEditor/0.23.1440.822/1440.23.1920.1057@0.23.1440.822" timestamp="1594109756159" />
+    <state x="221" y="23" width="1024" height="822" key="SettingsEditor/0.23.1440.822@0.23.1440.822" timestamp="1592614731911" />
+    <state x="325" y="172" key="Vcs.Push.Dialog.v2" timestamp="1594093699588">
       <screen x="0" y="23" width="1440" height="816" />
     </state>
-    <state x="221" y="23" key="SettingsEditor/0.23.1440.816/1440.23.1920.1057@0.23.1440.816" timestamp="1594093064561" />
-    <state x="221" y="23" width="1024" height="822" key="SettingsEditor/0.23.1440.822@0.23.1440.822" timestamp="1592614731911" />
+    <state x="325" y="172" key="Vcs.Push.Dialog.v2/0.23.1440.816/1440.23.1920.1057@0.23.1440.816" timestamp="1594093699588" />
     <state x="503" y="214" key="chooseDestDirectoryDialog" timestamp="1592614752592">
       <screen x="0" y="23" width="1440" height="822" />
     </state>
     <state x="503" y="214" key="chooseDestDirectoryDialog/0.23.1440.822@0.23.1440.822" timestamp="1592614752592" />
-    <state x="397" y="261" key="com.intellij.ide.util.TipDialog" timestamp="1592613907600">
-      <screen x="0" y="23" width="1440" height="822" />
+    <state x="397" y="259" key="com.intellij.ide.util.TipDialog" timestamp="1594103904355">
+      <screen x="0" y="23" width="1440" height="816" />
     </state>
+    <state x="397" y="259" key="com.intellij.ide.util.TipDialog/0.23.1440.816/1440.23.1920.1057@0.23.1440.816" timestamp="1594103904355" />
     <state x="397" y="261" key="com.intellij.ide.util.TipDialog/0.23.1440.822@0.23.1440.822" timestamp="1592613907600" />
     <state x="378" y="187" width="683" height="486" key="find.popup" timestamp="1590896043190">
       <screen x="0" y="23" width="1440" height="814" />
