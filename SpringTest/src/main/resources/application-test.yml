@@ -1,25 +1,142 @@
 # 工程启动端口
 server:
-  port:8080
-
-# 分页插件配置
-pagehelper:
-  helper-dialect: mysql
-  reasonable: true
+  port: 8080
 # Spring属性配置
 spring:
   application:
-    name: springpersonalproject
+    name: personalProject
+  # redis属性配置
+  redis:
+    port: 6379
+    host: 1.14.131.172
+    password: myredis123...
+    database: 0
+    timeout: 6000
+    jedis:
+      pool:
+        # 连接池最小空闲链接
+        min-idle: 1
+        # 连接池最大空闲链接
+        max-idle: 8
+        # 连接池最大阻塞等待时间 负数表示没有限制
+        max-wait: -1
+  # 新版本需要SpringBoot2.2以上 不然可能启动会有问题
   shardingsphere:
-    props: #展示修改以后的sql语句
+    props:
+      # 打开sql控制台输出日志
       sql-show: true
     datasource:
+      # 配置多数据源，若我们需要分更多的数据库直接在此处采用小写的逗号分隔以后往后面加即可
+      # 新版本数据源命名不能用 '_' 下划线
+      names: db0,db1
+      # springBoot 2.x 通过common配置公共项
       common:
-      names: db0
+        # 数据库类型 如果用这个com.zaxxer.hikari.HikariDataSource 下面需要配置jdbc-url
+        type: com.alibaba.druid.pool.DruidDataSource
+        # 驱动
+        driver-class-name: com.mysql.jdbc.Driver
+        # 数据库用户名
+        username: root
+        # 数据库密码
+        password: xinyu9697...
+      # 配置第1个数据源  数据库别名  如果是HikariDataSource连接池 需要使用 jdbc-url配置选项
       db0:
-        url:
-        username:
-        password:
+        # 数据库url连接
+        url: jdbc:mysql://1.14.131.172:3306/db0?useUnicode=true&characterEncoding=utf-8&useSSL=false
+      # 配置第2个数据源  数据库别名
+      db1:
+        # 数据库url连接
+        url: jdbc:mysql://1.14.131.172:3306/db1?useUnicode=true&characterEncoding=utf-8&useSSL=false
+    rules:
+      # 配置 分库分表 规则 都在下面配置
+      sharding:
+        # 配置分库分表算法
+        sharding-algorithms:
+          # 分表的逻辑配置 这个名字可以随便起名 但是要与上面的策略与之对应
+          table-inline:
+            # 分片算法类型，这里使用了内置的分片算法 INLINE
+            type: INLINE
+            # 分片算法属性配置
+            props:
+              # 算法表达-只有一个分片键进行分片的SQL 可以用分片算法行表达式
+              algorithm-expression: t_order_0$->{id % 4}
+          # 分库的逻辑配置 这个名字可以随便起名 但是要与上面的分库策略名称与之对应 对应字段属性同分表
+          database-inline:
+            type: INLINE
+            props:
+              algorithm-expression: db$->{id % 2}
+        # 配置分表规则
+        tables:
+          # t_order表的分表策略 这里名字必须为逻辑表名 <logic-table-name> 与 t_order_0$->{0..1} t_order_0 完全一样 否则会无法路由表
+          t_order_0:
+            # 真实分表之后的节点名称 由数据源名 + 表名组成（参考Inline语法规则）
+            # 下面展开是一个笛卡尔积，db0.order_00,db0.order_01 ... db1.order_02,db1.order_03
+            actual-data-nodes: db$->{0..1}.t_order_0$->{0..3}
+            # 配置分表策略 按照分片键取模
+            # TableShardingStrategy。用于配置数据被分配的目标表，
+            # 该目标表存在于该数据的目标数据源内。故表分片策略是依赖于数据源分片策略的结果的。
+            table-strategy:
+              # 用于单分片键的标准分片场景 相应的有 complex: # 用于多分片键的复合分片场景 # Hint 分片策略 none 不分片
+              standard:
+                # 分片列名称 路由键主键
+                sharding-column: id
+                # 与下方的分片算法一一对应
+                sharding-algorithm-name: table-inline
+            # 配置分库策略 主键取模0在0库 1在1库
+            database-strategy:
+              standard:
+                sharding-column: id
+                # 与下方的分片算法一一对应
+                sharding-algorithm-name: database-inline
+            # 其他表策略 和算法.............
+            # 分布式序列算法配置
+            key-generate-strategy:
+              column: id
+              # 分布式序列算法名称 这里采用内部提供的雪花算法
+              key-generator-name: snowflake
+        key-generators:
+          # 这里必须要配置
+          snowflake:
+            # 分布式序列算法类型
+            type: SNOWFLAKE
+            # 分布式序列算法属性配置
+            props:
+              worker-id: 123
+    enabled: true
+
+
+# 日志等级配置
+logging:
+  level:
+    root: info
+    com.baomidou.mybatisplus.samples.pagination: info
+
+# swagger开关配置
+springfox:
+  documentation:
+    swagger-ui:
+      enabled: true # true放开api文档，false关闭api文档
+
+# mybatis配置
+mybatis:
+  type-aliases-package: com.xinyu.mapper.model
+  mapper-locations: classpath:mapper/*.xml
+  configuration:
+    map-underscore-to-camel-case: true
+
+# mybatis-plus配置
+mybatis-plus:
+  global-config:
+    db-config:
+      logic-delete-field: deleted  #全局逻辑删除字段值 3.3.0开始支持，详情看下面。
+      logic-delete-value: 1 # 逻辑已删除值(默认为 1)
+      logic-not-delete-value: 0 # 逻辑未删除值(默认为 0)
+
+
+
+
+
+
 
 
 
