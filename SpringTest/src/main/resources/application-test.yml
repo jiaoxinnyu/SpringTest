@@ -1,10 +1,32 @@
 # 工程启动端口
 server:
   port: 8080
+
+# mybatis配置
+mybatis:
+  type-aliases-package: com.xinyu.mapper.model
+  mapper-locations: classpath:mapper/*.xml
+  configuration:
+    map-underscore-to-camel-case: true
+
+# mybatis-plus配置
+mybatis-plus:
+  global-config:
+    db-config:
+      logic-delete-field: deleted  #全局逻辑删除字段值 3.3.0开始支持，详情看下面。
+      logic-delete-value: 1 # 逻辑已删除值(默认为 1)
+      logic-not-delete-value: 0 # 逻辑未删除值(默认为 0)
+
+# 分页插件配置
+pagehelper:
+  helper-dialect: mysql
+  reasonable: true
+
 # Spring属性配置
 spring:
   application:
     name: personalProject
+
   # redis属性配置
   redis:
     port: 6379
@@ -50,6 +72,8 @@ spring:
     rules:
       # 配置 分库分表 规则 都在下面配置
       sharding:
+        # 绑定程序里面需要关联查询的表 用于减少shardingshpere查询sql的次数
+        #binding-tables[0]: t_order_0,t_order_details_0
         # 配置分库分表算法
         sharding-algorithms:
           # 分表的逻辑配置 这个名字可以随便起名 但是要与上面的策略与之对应
@@ -65,6 +89,11 @@ spring:
             type: INLINE
             props:
               algorithm-expression: db$->{id % 2}
+          # 订单详情表的分表逻辑配置
+          order-details-table-inline:
+            type: INLINE
+            props:
+              algorithm-expression: t_order_details_0$->{id % 4}
         # 配置分表规则
         tables:
           # t_order表的分表策略 这里名字必须为逻辑表名 <logic-table-name> 与 t_order_0$->{0..1} t_order_0 完全一样 否则会无法路由表
@@ -88,7 +117,19 @@ spring:
                 sharding-column: id
                 # 与下方的分片算法一一对应
                 sharding-algorithm-name: database-inline
-            # 其他表策略 和算法.............
+            # 订单详情表策略 和算法.............
+          t_order_details_0:
+            actual-data-nodes: db$->{0..1}.t_order_details_0$->{0..3}
+            # 配置分表策略
+            table-strategy:
+               standard:
+                 sharding-column: id
+                 sharding-algorithm-name: order-details-table-inline
+            # 配置分库策略 主键取模0在0库 1在1库
+            database-strategy:
+                standard:
+                  sharding-column: id
+                  sharding-algorithm-name: database-inline
             # 分布式序列算法配置
             key-generate-strategy:
               column: id
@@ -117,20 +158,7 @@ springfox:
     swagger-ui:
       enabled: true # true放开api文档，false关闭api文档
 
-# mybatis配置
-mybatis:
-  type-aliases-package: com.xinyu.mapper.model
-  mapper-locations: classpath:mapper/*.xml
-  configuration:
-    map-underscore-to-camel-case: true
 
-# mybatis-plus配置
-mybatis-plus:
-  global-config:
-    db-config:
-      logic-delete-field: deleted  #全局逻辑删除字段值 3.3.0开始支持，详情看下面。
-      logic-delete-value: 1 # 逻辑已删除值(默认为 1)
-      logic-not-delete-value: 0 # 逻辑未删除值(默认为 0)
 
 
 
